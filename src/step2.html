@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Particles</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<canvas class="webgl"></canvas>
+
+<div class="content">
+    <div class="textsection">
+        <h1>Three.js Particles</h1>
+        <h2>Guide through the E-Learning </h2>
+        <p>Step 2:<br>Your sphere looks like this:</p>
+    </div>
+
+<pre id="codeBlock" contenteditable="" class="language-js hidden" tabindex="0">
+    <code spellcheck="false" class="language-js">
+    <span class="token comment">/**</span>
+    <span class="token comment"> * Textures</span>
+    <span class="token comment"> */</span>
+    <span class="token keyword">const</span> textureLoader <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">THREE</span><span class="token punctuation">.</span><span class="token class-name">TextureLoader</span><span class="token punctuation">()</span>
+    <span class="token keyword">const</span> particleTexture <span class="token operator">=</span> textureLoader<span class="token punctuation">.</span>load<span class="token punctuation">(</span><span class="token string">'/textures/particles/1.png'</span><span class="token punctuation">)</span>
+            
+    <span class="token comment">/**</span>
+    <span class="token comment"> * Particles</span>
+    <span class="token comment"> */</span>
+    <span class="token comment">// Geometry</span>
+    <span class="token keyword">const</span> particlesGeometry <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">THREE</span><span class="token punctuation">.</span><span class="token class-name">BufferGeometry</span><span class="token punctuation">()</span>
+    <span class="token keyword">const</span> count <span class="token operator">=</span> <span class="token number">50000</span><span class="token punctuation">;</span>
+            
+    <span class="token comment">// Arrays to hold positions and colors</span>
+    <span class="token keyword">const</span> positions <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Float32Array</span><span class="token punctuation">(</span>count <span class="token operator">*</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> colors <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Float32Array</span><span class="token punctuation">(</span>count <span class="token operator">*</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            
+    <span class="token comment">// Radius of the sphere</span>
+    <span class="token keyword">const</span> radius <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>
+            
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> count<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// Generate random spherical coordinates</span>
+        <span class="token keyword">const</span> theta <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">random</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">2</span> <span class="token operator">*</span> <span class="token class-name">Math</span><span class="token punctuation">.</span><span class="token class-name">PI</span><span class="token punctuation">;</span> <span class="token comment">// Azimuthal angle</span>
+        <span class="token keyword">const</span> phi <span class="token operator">=</span> <span class="token class-name">Math</span><span class="token punctuation">.</span><span class="token function">acos</span><span class="token punctuation">(</span><span class="token number">2</span> <span class="token operator">*</span> <span class="token function">Math</span><span class="token punctuation">.</span><span class="token function">random</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Polar angle</span>
+        <span class="token keyword">const</span> r <span class="token operator">=</span> <span class="token class-name">Math</span><span class="token punctuation">.</span><span class="token function">cbrt</span><span class="token punctuation">(</span><span class="token function">Math</span><span class="token punctuation">.</span><span class="token function">random</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">*</span> radius<span class="token punctuation">;</span> <span class="token comment">// Radius</span>
+            
+        <span class="token comment">// Convert spherical coordinates to Cartesian coordinates</span>
+        <span class="token keyword">const</span> x <span class="token operator">=</span> r <span class="token operator">*</span> <span class="token function">Math</span><span class="token punctuation">.</span><span class="token function">sin</span><span class="token punctuation">(</span>phi<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token function">Math</span><span class="token punctuation">.</span><span class="token function">cos</span><span class="token punctuation">(</span>theta<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">const</span> y <span class="token operator">=</span> r <span class="token operator">*</span> <span class="token function">Math</span><span class="token punctuation">.</span><span class="token function">sin</span><span class="token punctuation">(</span>phi<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token function">Math</span><span class="token punctuation">.</span><span class="token function">sin</span><span class="token punctuation">(</span>theta<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">const</span> z <span class="token operator">=</span> r <span class="token operator">*</span> <span class="token function">Math</span><span class="token punctuation">.</span><span class="token function">cos</span><span class="token punctuation">(</span>phi<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            
+        <span class="token comment">// Set positions</span>
+        positions<span class="token punctuation">[</span>i <span class="token operator">*</span> <span class="token number">3</span><span class="token punctuation">]</span> <span class="token operator">=</span> x<span class="token punctuation">;</span>
+        positions<span class="token punctuation">[</span>i <span class="token operator">*</span> <span class="token number">3</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> y<span class="token punctuation">;</span>
+        positions<span class="token punctuation">[</span>i <span class="token operator">*</span> <span class="token number">3</span> <span class="token operator">+</span> <span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">=</span> z<span class="token punctuation">;</span>
+            
+        <span class="token comment">// Set colors (random RGB)</span>
+        colors<span class="token punctuation">[</span>i <span class="token operator">*</span> <span class="token number">3</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">Math</span><span class="token punctuation">.</span><span class="token function">random</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        colors<span class="token punctuation">[</span>i <span class="token operator">*</span> <span class="token number">3</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">Math</span><span class="token punctuation">.</span><span class="token function">random</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        colors<span class="token punctuation">[</span>i <span class="token operator">*</span> <span class="token number">3</span> <span class="token operator">+</span> <span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">Math</span><span class="token punctuation">.</span><span class="token function">random</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+            
+    <span class="token comment">// Create and set attributes</span>
+    particlesGeometry<span class="token punctuation">.</span>setAttribute<span class="token punctuation">(</span><span class="token string">'position'</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">THREE</span><span class="token punctuation">.</span><span class="token class-name">BufferAttribute</span><span class="token punctuation">(</span>positions<span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    particlesGeometry<span class="token punctuation">.</span>setAttribute<span class="token punctuation">(</span><span class="token string">'color'</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">THREE</span><span class="token punctuation">.</span><span class="token class-name">BufferAttribute</span><span class="token punctuation">(</span>colors<span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            
+    <span class="token comment">// Material</span>
+    <span class="token keyword">const</span> particlesMaterial <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">THREE</span><span class="token punctuation">.</span><span class="token class-name">PointsMaterial</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    particlesMaterial<span class="token punctuation">.</span>size <span class="token operator">=</span> <span class="token number">0.08</span>
+    particlesMaterial<span class="token punctuation">.</span>color <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">THREE</span><span class="token punctuation">.</span><span class="token class-name">Color</span><span class="token punctuation">(</span><span class="token string">'#4682B4'</span><span class="token punctuation">)</span>
+            
+    <span class="token comment">// Points</span>
+    <span class="token keyword">const</span> particles <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">THREE</span><span class="token punctuation">.</span><span class="token class-name">Points</span><span class="token punctuation">(</span>particlesGeometry<span class="token punctuation">,</span> particlesMaterial<span class="token punctuation">)</span>
+    scene<span class="token punctuation">.</span>add<span class="token punctuation">(</span>particles<span class="token punctuation">)</span>
+    </code>
+    </pre>
+            
+            
+        
+        <div class="buttonsection">
+            <a href="step1.html">
+                <button>back</button>
+            </a>
+            <button id="toggleCode">show code</button>
+            <a href="step3.html">
+                <button>next</button>
+            </a>
+        </div>
+    </div>
+
+    <script type="module" src="./step2.js"></script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Particles</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <canvas class="webgl"></canvas>
+
+    <div class="content">
+
+    <div class="textsection">
+        <h1>Three.js Particles</h1>
+        <h2>Guide through the E-Learning </h2>
+        <p>Step 1:<br>Your sphere looks like this:</p>
+    </div>
+    
+<pre id="codeBlock" contenteditable="" class="language-js hidden" tabindex="0"><code spellcheck="false" class="language-js"><span class="token comment">/**</span>
+<span class="token comment"> * Test Sphere</span>
+<span class="token comment"> */</span>
+<span class="token keyword">const</span> sphere <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">THREE</span><span class="token punctuation">.</span><span class="token class-name">Mesh</span><span class="token punctuation">(</span>
+    <span class="token keyword">new</span> <span class="token class-name">THREE</span><span class="token punctuation">.</span><span class="token class-name">SphereGeometry</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">32</span><span class="token punctuation">,</span> <span class="token number">16</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token keyword">new</span> <span class="token class-name">THREE</span><span class="token punctuation">.</span><span class="token class-name">MeshBasicMaterial</span><span class="token punctuation">(</span> <span class="token punctuation">{</span>
+        color<span class="token operator">:</span> <span class="token number">0x4682B4</span>
+    <span class="token punctuation">}</span> <span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+scene<span class="token punctuation">.</span>add<span class="token punctuation">(</span> sphere <span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code>
+</pre>
+        
+    
+    
+    <div class="buttonsection">
+
+        <a href="index.html">
+            <button>back</button>
+        </a>
+
+        <button id="toggleCode">show code</button>
+
+        <a href="step2.html">
+            <button>next</button>
+        </a>
+    </div>
+
+    </div>
+
+    <script type="module" src="./step1.js"></script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Particles</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <canvas class="webgl"></canvas>
+
+    <div class="content">
+
+
+    <div class="textsection">
+        <h1>Three.js Particles</h1>
+        <h2>Guide through the E-Learning </h2>
+        <p>Final: <br> Congrats! <br> Your sphere is now bouncing.</p>
+    </div>
+    
+<pre id="codeBlock" contenteditable="" class="language-js hidden" tabindex="0">
+<code spellcheck="false" class="language-js">
+/**
+ * Animate
+ */
+<span class="token keyword">const</span> clock <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">THREE</span><span class="token punctuation">.</span><span class="token class-name">Clock</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        
+<span class="token keyword">const</span> tick <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> elapsedTime <span class="token operator">=</span> clock<span class="token punctuation">.</span>getElapsedTime<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        
+    <span class="token keyword">const</span> positionArray <span class="token operator">=</span> particlesGeometry<span class="token punctuation">.</span>attributes<span class="token punctuation">.</span>position<span class="token punctuation">.</span>array<span class="token punctuation">;</span>
+        
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> count<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">let</span> i3 <span class="token operator">=</span> i <span class="token operator">*</span> <span class="token number">3</span><span class="token punctuation">;</span>
+        
+        <span class="token keyword">const</span> x <span class="token operator">=</span> positionArray<span class="token punctuation">[</span>i3<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">const</span> y <span class="token operator">=</span> positionArray<span class="token punctuation">[</span>i3 <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">const</span> z <span class="token operator">=</span> positionArray<span class="token punctuation">[</span>i3 <span class="token operator">+</span> <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        
+        <span class="token comment">// Calculate distance from the center</span>
+        <span class="token keyword">const</span> distance <span class="token operator">=</span> Math<span class="token punctuation">.</span>sqrt<span class="token punctuation">(</span>x <span class="token operator">*</span> x <span class="token operator">+</span> y <span class="token operator">*</span> y <span class="token operator">+</span> z <span class="token operator">*</span> z<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        
+        <span class="token comment">// Pulsing effect using sine wave</span>
+        <span class="token keyword">const</span> scale <span class="token operator">=</span> <span class="token number">1</span> <span class="token operator">+</span> Math<span class="token punctuation">.</span>sin<span class="token punctuation">(</span>elapsedTime <span class="token operator">*</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">0.5</span><span class="token punctuation">;</span>
+        
+        positionArray<span class="token punctuation">[</span>i3<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span>x <span class="token operator">/</span> distance<span class="token punctuation">)</span> <span class="token operator">*</span> radius <span class="token operator">*</span> scale<span class="token punctuation">;</span>
+        positionArray<span class="token punctuation">[</span>i3 <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span>y <span class="token operator">/</span> distance<span class="token punctuation">)</span> <span class="token operator">*</span> radius <span class="token operator">*</span> scale<span class="token punctuation">;</span>
+        positionArray<span class="token punctuation">[</span>i3 <span class="token operator">+</span> <span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span>z <span class="token operator">/</span> distance<span class="token punctuation">)</span> <span class="token operator">*</span> radius <span class="token operator">*</span> scale<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+        
+    particlesGeometry<span class="token punctuation">.</span>attributes<span class="token punctuation">.</span>position<span class="token punctuation">.</span>needsUpdate <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+        
+    renderer<span class="token punctuation">.</span>render<span class="token punctuation">(</span>scene<span class="token punctuation">,</span> camera<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    window<span class="token punctuation">.</span>requestAnimationFrame<span class="token punctuation">(</span>tick<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+        
+tick<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code>
+</pre>
+        
+        
+    
+    <div class="buttonsection">
+        <a href="step3.html">
+            <button>back</button>
+        </a>
+        <button id="toggleCode">show code</button>
+        <a href="https://kim-schregenberger.github.io/threejsparticles">
+            <button>learn more about particles</button>
+        </a>
+    </div>
+    
+    </div>
+
+    <script type="module" src="./final.js"></script>
+</body>
+</html>
